@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
+  </head>
+
+<body onload=setup();>
+
+<canvas id="myCanvas" width=1000 height="300" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+//c.width = window.innerWidth;
+//c.height = window.innerHeight;
+c.width = 800;
+c.height = 200;
+var ctx = c.getContext("2d");
+ctx.globalAlpha = 0.2;
+
+var circles = [];
+
+var tries = 0;
+
+function setup() {
+  console.log('in setup');
+  //for (var i = 0; i < tries; i++) {
+  while (circles.length < 50) {
+    var circle = {
+      x: Math.random()*c.width,
+      y: Math.random()*c.height,
+      r: Math.random()*c.width
+    }
+
+    var overlapping = false;
+    for (var j=0;j<circles.length;j++) {
+      var dist = Math.sqrt( Math.pow((circle.x-circles[j].x), 2) + Math.pow((circle.y-circles[j].y), 2) )
+      if (dist < circle.r+circles[j].r) {
+        // they overlap
+        overlapping = true;
+        break;
+      }
+    }
+
+    if (!overlapping) {
+      circles.push(circle);
+    }
+
+    tries++;
+    console.log(tries);
+
+    if (tries > 1000) {
+      break;
+    }
+
+  }
+
+  for (var i = 0; i < circles.length; i++) {
+    drawCircle(circles[i].x,circles[i].y,circles[i].r,"red");
+  }
+
+  console.log(circles.length);
+  console.log(circles);
+}
+
+function clearCanvas() {
+    c.width = c.width;
+}
+
+//function draw(e) {
+//  var x = e.clientX;
+//  var y = e.clientY;
+//  drawCircle(x,y,"red");
+//}
+//
+function drawCircle(x,y,r,color) {
+  console.log(x);
+  console.log(y);
+  console.log(color);
+
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, 2 * Math.PI);
+  color = "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
+  ctx.fillStyle = color;
+  console.log(color);
+  ctx.fill();
+}
+</script> 
+
+</body>
+</html>

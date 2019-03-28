@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width=1000 height="300" style="border:1px solid #d3d3d3;" 
+        onmousemove="draw(event)">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+//drawCircle(100,100,"red");
+
+
+function draw(e) {
+  var x = e.clientX;
+  var y = e.clientY;
+  drawCircle(x,y,"red");
+}
+
+function drawCircle(x,y,color) {
+  console.log(x);
+  console.log(y);
+  console.log(color);
+
+  ctx.beginPath();
+  ctx.arc(x, y, 50, 0, 2 * Math.PI);
+  //ctx.strokeStyle = color;
+  color = "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
+  ctx.strokeStyle = color;
+  console.log(color);
+  ctx.stroke();
+}
+</script> 
+
+</body>
+</html>
